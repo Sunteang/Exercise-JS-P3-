@@ -1,24 +1,24 @@
-// Exercise4:Use Node.js's fs module to write a file asynchronously `fs.writeFile`. Write a function that takes a file path and a callback. Use the callback to write the contents of the file to the file path.
 const fs = require("fs");
-const filePath = "files/reply.txt";
-const content = "Nice to meet you!";
+const readPrintFile = require("./example3");
+const filePath = "example/reply.txt";
 
-function writeToFilePath(file, content, callbackFunc) {
-  fs.writeFile(file, content, (err) => {
+function writeToFilePath(filePath, content, callback) {
+  fs.writeFile(filePath, content, (err) => {
     if (err) {
-      callbackFunc(err);
+      console.log("Data error: \n", err);
     } else {
-      callbackFunc(null, "Write file completed successfully");
+      callback("write file completed successful");
     }
   });
 }
-
-function result(err, contentMessage) {
-  if (err) {
-    console.error("Error writing file:", err);
-  } else {
-    console.log(contentMessage);
+writeToFilePath(
+  filePath,
+  "Hello There!! Nice to see you again. Good Bye.",
+  (data) => {
+    console.log(data);
   }
-}
+);
 
-writeToFilePath(filePath, content, result);
+readPrintFile();
+
+module.exports = writeToFilePath;
